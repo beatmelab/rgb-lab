@@ -1,0 +1,88 @@
+RGB Lab — publication notices
+
+APPLICATION CODE
+
+MIT License
+
+Copyright (c) 2026 RGB Lab contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+THIRD-PARTY MATERIALS
+
+The application's MIT license does not replace the following data/font terms.
+
+CIE reference and derived numerical data
+----------------------------------------
+International Commission on Illumination (CIE):
+- CIE 1931 standard colorimetric observer (2019):
+  https://doi.org/10.25039/CIE.DS.xvudnb9b
+- CIE standard illuminant D65 (2019):
+  https://doi.org/10.25039/CIE.DS.hjfjmt59
+- Spectral radiance factors of 99 colour-fidelity test samples (2017):
+  https://doi.org/10.25039/CIE.DS.wi5idbqu
+
+Original data and CIE-derived numerical arrays: Creative Commons
+Attribution-ShareAlike 4.0 International (CC BY-SA 4.0):
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Changes made for RGB Lab: the observer is normalized to xy for the spectral
+boundary (380–780 nm, 1 nm); surface calculations use a 5 nm observer and
+Y-normalized D65; five colour-sample columns are selected unchanged. Synthetic
+LED spectra are fitted using the observer to match the nominal emitter xyY.
+These are illustrative models, not CIE-approved fixture calibrations. The
+original datasets and metadata, selected samples, checksums, and generation
+procedure are documented in the repository's src/data/README.md. No endorsement
+by CIE is implied. The CIE-derived data remains licensed under CC BY-SA 4.0.
+
+NIST skin reflectance
+---------------------
+Catherine C. Cooksey, David W. Allen and Benjamin K. Tsai (2017),
+Reference Data Set of Human Skin Reflectance, Journal of Research of NIST 122.
+Article: https://doi.org/10.6028/jres.122.026
+Data: https://doi.org/10.18434/M38597
+Source: https://opendata.nist.gov/1832_Data_JResNIST_skinrefl%20v3.txt
+NIST terms: https://www.nist.gov/director/licensing
+
+Attributed US government data. Subjects 44, 70 and 22 (Average curves) were
+selected as the lowest D65 L*, the nearest full-range perceptual midpoint,
+and the greatest D65 a* among samples within 3 L* of the brightest sample, then
+linearly resampled from 3 nm to 5 nm. They are displayed as Dark, Medium and
+Light on illustrative matte geometry, not photographs or measured facial maps.
+These examples cover a broad range, not the full diversity of skin. No demographic
+identity or NIST endorsement is implied.
+
+Fonts
+------
+Rubik: Copyright 2015 The Rubik Project Authors.
+https://github.com/googlefonts/rubik
+DM Sans: Copyright 2014 The DM Sans Project Authors.
+https://github.com/googlefonts/dm-fonts
+
+Both fonts are distributed under the SIL Open Font License 1.1. Full notices:
+fonts/Rubik-OFL.txt
+fonts/DM-Sans-OFL.txt
+Their licenses apply to the fonts independently of the application code.
+
+Vite-generated runtime helper
+------------------------------
+Copyright (c) 2019-present, VoidZero Inc. and Vite contributors.
+Vite's generated module-preload helper is MIT-licensed; the permission and
+warranty terms printed above apply with this copyright notice.
+Source and license: https://github.com/vitejs/vite/blob/main/LICENSE

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Explore additive RGB light mixing, compare RGBW, Amber and Mint LED fixtures, and see how different light spectra affect skin tones and materials." />
+    <link rel="canonical" href="https://rgb-lab.beatmelab.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="RGB Lab" />
+    <meta property="og:title" content="RGB Lab — RGB Light Mixing &amp; LED Fixture Simulator" />
+    <meta property="og:description" content="Explore additive RGB light mixing, compare RGBW, Amber and Mint LED fixtures, and see how different light spectra affect skin tones and materials." />
+    <meta property="og:url" content="https://rgb-lab.beatmelab.com/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://rgb-lab.beatmelab.com/og-rgb-lab.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="RGB Lab logo: three softly blurred red, green and blue rings with additive color mixing at their intersections on a black background." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RGB Lab — RGB Light Mixing &amp; LED Fixture Simulator" />
+    <meta name="twitter:description" content="Explore additive RGB light mixing, compare RGBW, Amber and Mint LED fixtures, and see how different light spectra affect skin tones and materials." />
+    <meta name="twitter:image" content="https://rgb-lab.beatmelab.com/og-rgb-lab.png" />
+    <meta name="twitter:image:alt" content="RGB Lab logo: three softly blurred red, green and blue rings with additive color mixing at their intersections on a black background." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>RGB Lab — RGB Light Mixing &amp; LED Fixture Simulator</title>
+    <style>
+      html { background: #000; color-scheme: dark; }
+      body { margin: 0; }
+      .app:not([data-ready]) { visibility: hidden; }
+    </style>
+    <link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="site-header">
+        <div class="brand">
+          <svg viewBox="0 0 32 32" aria-hidden="true" style="isolation:isolate"><circle style="mix-blend-mode:plus-lighter" cx="12" cy="12" r="8" stroke="#ff6a66"/><circle style="mix-blend-mode:plus-lighter" cx="21" cy="12" r="8" stroke="#b5ed8a"/><circle style="mix-blend-mode:plus-lighter" cx="16.5" cy="20" r="8" stroke="#7c9bff"/></svg>
+          <h1>RGB Lab</h1>
+        </div>
+      </header>
+      <button id="open-about" class="info-button" type="button" aria-label="About RGB Lab" aria-haspopup="dialog" aria-controls="about-dialog" title="About RGB Lab">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 10.5v6"/><circle class="info-dot" cx="12" cy="7.5" r=".8"/></svg>
+      </button>
+
+      <main>
+        <div class="laboratory">
+          <section class="visual-panel" aria-label="Additive RGB mixing simulation">
+            <div class="canvas-container">
+              <canvas id="light-canvas" role="img" aria-label="Three red, green and blue light circles that add together where they overlap"></canvas>
+              <canvas id="fixture-canvas" class="fixture-canvas" role="img" aria-label="Fixture emitter components that mix where they overlap" hidden></canvas>
+            </div>
+            <p id="move-help" class="sr-only">Drag each light to move it. To use the keyboard, select a light with Tab and use the arrow keys. Hold Shift to move faster.</p>
+            <section id="surface-view" class="surface-view" aria-labelledby="surface-title" hidden>
+              <div class="surface-intro"><h2 id="surface-title">Surface comparison</h2><p>Spatial illumination · synthetic LED spectra</p></div>
+              <div class="surface-columns"></div>
+              <p class="surface-status" role="status"></p>
+              <p class="surface-footnote">Illustrative matte face · measured skin and color samples</p>
+              <p class="surface-approximation" hidden>Some colors exceed sRGB · Screen approximation</p>
+            </section>
+          </section>
+
+          <aside class="controls" aria-label="Light controls">
+            <div class="mode-switch" role="group" aria-label="Simulation mode">
+              <button id="basic-mode" type="button" aria-pressed="true">Basic</button>
+              <button id="fixture-mode" type="button" aria-pressed="false">Fixture</button>
+              <button id="surfaces-mode" type="button" aria-pressed="false">Surfaces</button>
+            </div>
+            <section id="basic-intensity" class="intensity-section" aria-labelledby="intensity-title">
+              <div class="section-heading"><h2 id="intensity-title">Light intensity</h2><button id="reset" class="reset-button" type="button" title="Reset all three lights to 255"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7a6 6 0 1 1-.2 5M4 3v4h4"/></svg><span>Reset</span></button></div>
+              <div class="channels">
+                <div class="channel" style="--channel-color:#ff7471;--channel-rgb:255,0,0"><div class="channel-heading"><label for="red"><span class="channel-letter">R</span>Red</label><output id="red-value" for="red">255</output></div><input id="red" type="range" min="0" max="255" step="1" value="255" aria-describedby="red-scale" /><div class="range-scale" id="red-scale"><span>0</span><span>255</span></div></div>
+                <div class="channel" style="--channel-color:#b5ed8a;--channel-rgb:0,255,0"><div class="channel-heading"><label for="green"><span class="channel-letter">G</span>Green</label><output id="green-value" for="green">255</output></div><input id="green" type="range" min="0" max="255" step="1" value="255" aria-describedby="green-scale" /><div class="range-scale" id="green-scale"><span>0</span><span>255</span></div></div>
+                <div class="channel" style="--channel-color:#8ca7ff;--channel-rgb:0,0,255"><div class="channel-heading"><label for="blue"><span class="channel-letter">B</span>Blue</label><output id="blue-value" for="blue">255</output></div><input id="blue" type="range" min="0" max="255" step="1" value="255" aria-describedby="blue-scale" /><div class="range-scale" id="blue-scale"><span>0</span><span>255</span></div></div>
+              </div>
+            </section>
+
+            <section id="fixture-controls" class="fixture-controls" aria-label="Fixture controls" hidden>
+              <div class="profile-heading">
+                <div class="engine-label"><label for="fixture-profile">Engine</label><button id="open-engine-help" class="diagram-info-button" type="button" aria-label="Why add White, Amber and Mint LEDs?" aria-haspopup="dialog" aria-controls="engine-help-dialog" title="Why add White, Amber and Mint LEDs?"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.75-2.5 2-2.5 4"/><circle class="info-dot" cx="12" cy="16.5" r=".8"/></svg></button></div>
+                <select id="fixture-profile"></select>
+              </div>
+              <div id="white-temperature-row" class="profile-heading white-temperature-row" hidden><label for="white-temperature">White CCT</label><select id="white-temperature"></select></div>
+              <p class="profile-note">Generic profile · approximate</p>
+              <div id="surface-settings" class="surface-settings" hidden>
+                <div id="surface-options">
+                  <div class="profile-heading"><label for="skin-sample">Skin sample</label><select id="skin-sample"></select></div>
+                  <div class="surface-actions">
+                    <button id="match-reference-white" class="position-reset" type="button">Match reference white</button>
+                    <button id="overlap-beams" class="position-reset" type="button">Overlap beams</button>
+                  </div>
+                  <label class="surface-normalization" for="equal-illuminance"><input id="equal-illuminance" type="checkbox" checked aria-describedby="equal-illuminance-help" />Equal illuminance</label>
+                  <span id="equal-illuminance-help" class="sr-only">Compare with D65 at equal incident illuminance before beam falloff. Uses one gain for the whole mix; partial coverage and blur can still make surfaces darker. Turn off to show relative output.</span>
+                </div>
+              </div>
+              <div class="section-heading color-matching-heading">
+                <h2>Color matching</h2>
+                <button id="open-diagram-help" class="diagram-info-button" type="button" aria-label="Understand this diagram" aria-haspopup="dialog" aria-controls="diagram-help-dialog" title="Understand this diagram">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.75-2.5 2-2.5 4"/><circle class="info-dot" cx="12" cy="16.5" r=".8"/></svg>
+                </button>
+              </div>
+              <div class="target-row"><label id="target-hex-label" for="target-hex">Target HEX</label><input id="target-hex" type="text" value="#FFFFFF" maxlength="7" spellcheck="false" autocomplete="off" aria-describedby="target-error" /></div>
+              <div class="xy-inputs">
+                <label for="target-x">x<input id="target-x" type="number" min="0" max="0.8" step="0.0001" aria-label="Target x" aria-describedby="target-error" /></label>
+                <label for="target-y">y<input id="target-y" type="number" min="0.0001" max="0.9" step="0.0001" aria-label="Target y" aria-describedby="target-error" /></label>
+                <button id="match-target" class="match-button" type="button">Match target</button>
+              </div>
+              <p id="target-error" class="field-error" role="status"></p>
+              <canvas id="gamut-diagram" class="gamut-diagram" role="img" aria-label="CIE 1931 xy diagram with lettered emitter positions: R Red, G Green, B Blue, W White, A Amber and M Mint, where included in the selected engine. Select a target here or enter its coordinates above." aria-describedby="diagram-legend"></canvas>
+              <div id="diagram-legend" class="diagram-legend"><span class="fixture-key">Fixture</span><span class="srgb-key">sRGB</span><span class="target-key">Target</span><span class="actual-key">Actual</span></div>
+              <div class="fixture-comparison">
+                <div><div id="fixture-target-swatch" class="comparison-swatch" aria-hidden="true"></div><span>Target</span><output id="fixture-target-xy"></output></div>
+                <div><div id="fixture-actual-swatch" class="comparison-swatch" aria-hidden="true"></div><span>Actual</span><output id="fixture-actual-xy"></output></div>
+              </div>
+              <p class="result-caption">Combined emitter output.</p>
+              <dl class="fixture-metrics"><div><dt>Preview HEX</dt><dd id="fixture-preview-hex"></dd></div><div><dt>Δu′v′</dt><dd id="fixture-delta"></dd></div></dl>
+              <div class="gamut-status"><p id="fixture-gamut-status"></p><p id="target-display-status" class="warning"></p><p id="actual-display-status" class="warning"></p></div>
+              <div class="section-heading"><h2>Emitters</h2><span id="fixture-recipe-status" class="recipe-status">Manual</span></div>
+              <div id="fixture-emitters" class="fixture-emitters"></div>
+              <span id="fixture-announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span>
+            </section>
+
+            <section class="scene-section" aria-label="Position and blur">
+              <button id="reset-positions" class="position-reset" type="button">Reset positions</button>
+              <div class="channel blur-control" style="--channel-color:#c8ced7">
+                <div class="channel-heading"><label for="blur">Blur</label><output id="blur-value" for="blur">20 px</output></div>
+                <input id="blur" type="range" min="0" max="80" step="1" value="20" />
+              </div>
+            </section>
+
+            <section id="basic-result" class="result-section" aria-labelledby="result-title"><h2 id="result-title">Resulting color</h2><div class="result"><div id="color-swatch" class="color-swatch" aria-hidden="true"></div><div class="color-details"><span id="hex-value" class="hex-value">#FFFFFF</span><span id="rgb-value" class="rgb-value">RGB(255, 255, 255)</span></div></div><p class="result-caption">Combined RGB intensities.</p><span id="result-announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span></section>
+
+            <section id="basic-presets" class="presets-section" aria-labelledby="presets-title"><h2 id="presets-title">Presets</h2><div id="presets" class="presets"></div></section>
+          </aside>
+        </div>
+      </main>
+    </div>
+    <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+      <div class="about-heading">
+        <h2 id="about-title">About RGB Lab</h2>
+        <form method="dialog"><button class="dialog-close" aria-label="Close information" autofocus><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></form>
+      </div>
+      <p>RGB Lab is a space to explore how colored light adds together, from ideal RGB mixing to the output of a simulated LED fixture.</p>
+      <h3>Basic</h3>
+      <p>Adjust Red, Green and Blue from 0 to 255, or choose a preset. Where the lights overlap, their channels add together. Full RGB produces white; all channels off produces black.</p>
+      <p><strong>Reset</strong> restores the three intensities to 255. Basic adds display RGB values directly; it is an ideal mixing model rather than a calibrated photometric control.</p>
+      <h3>Fixture</h3>
+      <p>Choose an LED engine and adjust its emitters: R = Red, G = Green, B = Blue, W = White, A = Amber and M = Mint. Fixture starts with RGB matched to D65 white; changing engines matches the current target. Adjusting an emitter switches to Manual. Equal channel values do not guarantee a particular white.</p>
+      <p><strong>RGB can produce white</strong> when its emitters are balanced. The canvas uses a shared exposure with smooth highlight compression, so balanced RGB looks bright and extra emitters can add output. White LEDs offer another recipe and a different spectrum; they are not required to make white.</p>
+      <p>For engines with White, <strong>White CCT</strong> changes only that emitter’s nominal color temperature and preserves the levels. The default is <strong>6500 K · D65</strong>, chosen to align with the screen-white target; it is not a fixture standard.</p>
+      <p>Enter a target HEX color or select a point in the CIE xy diagram, then press <strong>Match target</strong>. Entering a target alone does not change the levels. Compare Target and Actual; a smaller Δu′v′ means closer chromaticity, not closer brightness or higher CRI. Adjusting an emitter afterwards keeps your manual mix; matching again can use every available channel.</p>
+      <p>The outer curved boundary is the physical chromaticity domain for the CIE standard observer. The green Fixture outline shows reachable chromaticities; the dashed sRGB triangle shows the preview’s color range. Background colors are approximate and the diagram does not show brightness. <strong>Outside fixture gamut</strong> means the target cannot be matched exactly. <strong>Outside sRGB</strong> means the screen preview needs approximation.</p>
+      <p>The <strong>? button beside Engine</strong> explains the practical benefits of White, Amber and Mint LEDs, and why a larger gamut is only part of the story.</p>
+      <h3>Surfaces</h3>
+      <p>Choose <strong>Surfaces</strong> and drag the beams directly over the fixture face and color samples. Only the areas reached by a beam are illuminated; overlapping beams add their light. <strong>Blur</strong> softens the light’s falloff. The background shows a faint footprint to locate each beam. The <strong>D65 reference</strong> stays uniformly illuminated in a corner PIP. The main face fills the visual area, with the material samples below it.</p>
+      <p>Fixture and Surfaces share the engine, emitter levels, beam positions and blur. For a controlled comparison, press <strong>Match reference white</strong>, then <strong>Overlap beams</strong>. This matches D65 and aligns the beams on the face. Switching engines rematches the target and keeps their positions.</p>
+      <p><strong>Equal illuminance</strong> starts enabled. It scales the complete recipe to the reference’s incident light level before beam falloff, so extra output alone does not make a fixture look better. This is a comparison setting, not extra fixture power. One gain applies to every emitter and surface: partial overlaps and blurred edges still receive less light. It does not white-balance manual colored mixes. Turn it off to see relative output and dimming. Display exposure stays fixed in both views.</p>
+      <p>The face is an illustrative matte shape using a measured skin reflectance, not a photograph of the measured person. Choose <strong>Dark, Medium or Light</strong>: measured samples covering a broad range of reflectances. Light is a warmer measured example near the bright end of the dataset. They do not cover every skin tone or imply demographic categories. The colored samples use measured spectral data; Gray is an ideal 18% reflector. Object brightness is preserved: each sample is not separately brightened or white-balanced.</p>
+      <p>The LED spectra are synthetic examples fitted to our nominal emitter chromaticities, not measurements of real products. They show how spectra can affect reflected colors, but cannot predict a commercial fixture’s performance. RGB Lab does not calculate CRI. More channels offer more choices, not an automatic improvement in every mix.</p>
+      <p class="about-sources">Surface data: <a href="https://www.nist.gov/programs-projects/reflectance-measurements-human-skin" target="_blank" rel="noopener noreferrer">NIST · skin reflectance</a>, <a href="https://doi.org/10.25039/CIE.DS.wi5idbqu" target="_blank" rel="noopener noreferrer">CIE · color samples</a>, <a href="https://doi.org/10.25039/CIE.DS.hjfjmt59" target="_blank" rel="noopener noreferrer">CIE · D65</a>. CIE-derived data: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</p>
+      <h3>Move and soften</h3>
+      <p>Hover over the lights to see the outline and name of the emitter that will be selected, then drag to move it. In overlaps, the nearest eligible light center is selected. The hint disappears while dragging. With the keyboard, use Tab to select a light and the arrow keys to move it by 5 px, or 20 px with Shift.</p>
+      <p><strong>Blur</strong> softens the edges, starts at 20 px and ranges from 0 to 80 px. <strong>Reset positions</strong> restores the layout without changing intensities or blur.</p>
+      <h3>Remembered mode</h3>
+      <p>This browser remembers the last selected mode before the next visit. Only the mode is saved; levels, positions, blur, engine, White CCT, skin and Equal illuminance return to their defaults on reload. The app uses localStorage for this preference and has no account or analytics. Its fonts and data are bundled locally.</p>
+      <p class="about-note">Fixture profiles are generic approximations, not measurements of real products. Preview HEX is a screen representation; xy and Δu′v′ describe the calculated light. The swatches show combined emitter output, while the canvas shows their spatial overlap at a fixed exposure.</p>
+      <p class="about-sources">Application code: MIT. Data and font licenses remain separate. <a href="./NOTICE.txt" target="_blank" rel="noopener noreferrer">Licenses and attribution</a>.</p>
+      <p class="about-sources">Created by <a href="https://beatmelab.com" target="_blank" rel="noopener noreferrer">BeatMe Lab</a> · <a href="https://github.com/beatmelab/rgb-lab" target="_blank" rel="noopener noreferrer">Source on GitHub</a></p>
+    </dialog>
+    <dialog id="engine-help-dialog" class="about-dialog" aria-labelledby="engine-help-title">
+      <div class="about-heading">
+        <h2 id="engine-help-title">Why add White, Amber and Mint LEDs?</h2>
+        <form method="dialog"><button class="dialog-close" aria-label="Close engine help" autofocus><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></form>
+      </div>
+      <p><strong>Matching the color of a beam is only part of the job.</strong> Skin, costumes and scenery reflect different wavelengths. A material cannot reflect light that the fixture does not supply, so two beams that look equally white can make the same object look different. Extra emitters give the fixture more ways to shape its spectrum, not just more colors on the diagram.</p>
+      <p><strong>W · White — whites, pastels and broader illumination.</strong> A dedicated White LED supplies white directly and can add output. A phosphor-converted emitter supplies a broader range of wavelengths than narrow RGB peaks, which can help render skin and fabrics more faithfully. It is useful when illuminating people or mixing pale colors. RGB can already make white; W offers another way to make it, and its color temperature still matters.</p>
+      <p><strong>A · Amber — warm light and yellow–orange nuance.</strong> Amber adds energy between Red and Green, offering more control over warm whites, golds and oranges. That is useful for candlelight, firelight and sunset effects, where an RGB mixture can match the beam color but illuminate objects differently. Depending on the emitter, Amber can also extend the gamut; it does in these profiles.</p>
+      <p><strong>M · Mint — fine control of whites and pastels.</strong> Mint is a pale greenish, commonly broad-spectrum emitter. It adds options for tuning white color temperature, balancing green–magenta tint and making soft colors. This is useful when matching other lights or adjusting lighting for camera work. Its broader spectrum can also help color rendering. Here, Mint sits inside the gamut: its contribution is spectral flexibility, not access to more saturated greens.</p>
+      <h3>Looking white is not the same as rendering colors well</h3>
+      <p><strong>CRI (Color Rendering Index)</strong> describes how faithfully a nominally white source renders test colors compared with a reference at a similar color temperature. Two lights can have the same white chromaticity yet make skin, fabrics or scenery look different because their spectra differ. Adding W, A or M does not guarantee a higher CRI: the actual emitters and their mix matter.</p>
+      <p class="about-note">RGB Lab uses generic profiles and synthetic LED spectra. More channels offer more choices, not an automatic improvement. Surfaces illustrates spectral differences; it does not predict a real fixture or calculate CRI or TM-30.</p>
+      <p class="about-sources">Further reading: <a href="https://blog.etcconnect.com/an-array-of-choices-2" target="_blank" rel="noopener noreferrer">ETC · additional emitters</a>, <a href="https://blog.etcconnect.com/an-array-of-choices-3" target="_blank" rel="noopener noreferrer">ETC · Mint and White</a>, <a href="https://www1.eere.energy.gov/buildings/publications/pdfs/ssl/led-color-characteristics-factsheet.pdf" target="_blank" rel="noopener noreferrer">US DOE · color and CRI (PDF)</a>.</p>
+    </dialog>
+    <dialog id="diagram-help-dialog" class="about-dialog" aria-labelledby="diagram-help-title">
+      <div class="about-heading">
+        <h2 id="diagram-help-title">Reading the color diagram</h2>
+        <form method="dialog"><button class="dialog-close" aria-label="Close diagram help" autofocus><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></form>
+      </div>
+      <p>Choose a color with <strong>Target HEX</strong> or click inside the colored shape. Press <strong>Match target</strong> to ask the selected LED engine to reproduce it.</p>
+      <figure class="diagram-help-figure">
+        <canvas id="diagram-help-image" width="1200" height="1040" role="img" aria-label="Annotated RGB example: 1 marks the colored area, 2 the solid green fixture outline, 3 the dashed sRGB triangle, and 4 the white Target ring and cyan Actual dot." aria-describedby="diagram-help-caption"></canvas>
+        <ol class="diagram-help-legend"><li>Colored area</li><li>Fixture gamut</li><li>sRGB gamut</li><li>Target / Actual</li></ol>
+        <figcaption id="diagram-help-caption">Example: RGB channels at 255 · Screen colors are approximate.</figcaption>
+      </figure>
+      <h3><span class="help-marker" aria-hidden="true">1</span>The colored area</h3>
+      <p>The horseshoe-shaped area maps the possible colors of visible light. Its x and y coordinates describe color and tint, without brightness. Colors near the outer edge are more saturated; whites and pale colors sit toward the middle. The background is an approximate guide: your screen cannot display every color in this area.</p>
+      <p>In daylight conditions, <strong>human vision is most sensitive to the brightness of yellow-green light, around 555 nm</strong>. At equal optical power, this light can appear brighter than red or blue. The CIE system includes this brightness sensitivity in a value called Y.</p>
+      <p>To place colors on this map, CIE converts three color-matching values, X, Y and Z, into proportions called x and y. Many greens have a large Y share, placing them high on the chart. The map also spaces color differences unevenly, spreading some green differences farther apart than similar-looking differences elsewhere. The larger green area therefore is not a direct measure of brightness or how many greens we can distinguish.</p>
+      <h3>What does gamut mean?</h3>
+      <p>A <strong>gamut</strong> is the range of colors a light or screen can produce. In this diagram, colors inside an outline are within that device’s gamut; colors outside it cannot be reproduced exactly by that device.</p>
+      <h3><span class="help-marker" aria-hidden="true">2</span>Solid green outline · Fixture</h3>
+      <p>This is the gamut of the selected LED engine: the colors reachable by mixing its emitters. For RGB it is a triangle. With extra emitters it may become a larger polygon, although adding a channel does not always expand it. A target outside this outline cannot be matched exactly; <strong>Match target</strong> tries to find the closest color the fixture can produce.</p>
+      <p>The lettered dots locate each emitter: <strong>R</strong> Red, <strong>G</strong> Green, <strong>B</strong> Blue, <strong>W</strong> White, <strong>A</strong> Amber and <strong>M</strong> Mint. Only emitters in the selected engine appear. White and Mint lie inside the existing gamut in these profiles; Amber extends its edge. These positions stay visible even when a channel is off.</p>
+      <p><strong>Why add emitters inside the gamut?</strong> The outline shows reachable color and tint, not the spectrum or how skin and fabrics will look. White can add output and broad-spectrum light; Amber helps shape warm light; Mint helps tune whites, pastels and green–magenta balance. These can be useful even without a larger outline. Surfaces explores how different spectra illuminate materials.</p>
+      <h3><span class="help-marker" aria-hidden="true">3</span>Dashed triangle · sRGB</h3>
+      <p>This is the gamut of the sRGB screen preview. A fixture may produce a color outside this triangle, but the screen must approximate it. <strong>Outside fixture gamut</strong> describes a limit of the light; <strong>Outside sRGB</strong> describes a limit of its preview. A preview may also need approximation when its brightness exceeds the screen’s range.</p>
+      <h3><span class="help-marker" aria-hidden="true">4</span>The points · Target and Actual</h3>
+      <p>The <strong>white ring</strong> marks the color you want. The <strong>small cyan dot</strong> marks the combined color produced by the current emitter levels. The dot’s cyan fill is only a marker; the swatches below show the color previews. When both points coincide, their color and tint match, even if their brightness differs.</p>
+      <h3>Δu′v′ · Color difference</h3>
+      <p>This number measures the distance between Target and Actual in a color-coordinate system called <strong>CIE 1976 u′v′</strong>. <strong>0</strong> means the same color and tint; a smaller number means a closer match. For example, 0.01 is closer than 0.03. It is not a percentage, a brightness difference or a score for how well a light renders skin and materials.</p>
+      <figure class="delta-help-figure">
+        <svg viewBox="0 0 300 84" role="img" aria-labelledby="delta-help-image-title">
+          <title id="delta-help-image-title">Schematic u′v′ distances: a cyan Actual dot closer to the white Target ring means a smaller Δu′v′.</title>
+          <g fill="none" stroke="#a6aab1" stroke-width="1.5"><path d="M24 25h30M174 25h102"/></g>
+          <g fill="#101214" stroke="#fff" stroke-width="2"><circle cx="24" cy="25" r="6"/><circle cx="174" cy="25" r="6"/></g>
+          <g fill="#79e5ff"><circle cx="54" cy="25" r="4"/><circle cx="276" cy="25" r="4"/></g>
+          <g fill="#d4d7dd" font-family="DM Sans, sans-serif" font-size="12"><text x="14" y="62">Closer match</text><text x="164" y="62">Larger difference</text></g>
+        </svg>
+        <figcaption>Schematic distances in u′v′ · Not to scale.</figcaption>
+      </figure>
+      <p class="about-note">The points, swatches and Δu′v′ describe combined emitter output at full overlap. Moving the beams changes the local mixture on the main canvas, so a partial overlap can look different.</p>
+    </dialog>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
