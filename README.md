@@ -51,7 +51,7 @@ npm run preview
 - For keyboard movement, use **Tab** to focus a light, then the arrow keys: **5 px**, or **20 px with Shift**.
 - **Blur** ranges from 0 to 80 px and starts at **20 px**. It softens each beam's intensity falloff. **Reset positions** restores geometry without changing levels or blur.
 - In Basic, **Reset** restores all three intensities to 255. Presets include the primaries, secondaries, white and black.
-- The **ⓘ button**, at the bottom left, opens instructions, emitter explanations, sources and limitations. Close it with Escape, the close button or a click outside.
+- The **ⓘ button**, at the bottom left (top right on portrait mobile screens), opens instructions, sources and limitations. Close it with Escape, the close button or a click outside.
 - The **? button beside Engine** explains the practical benefits of White, Amber and Mint LEDs, including spectrum, gamut and color rendering. It is available in Fixture and Surfaces.
 - The **? button beside Color matching** explains the colored diagram, the Fixture and sRGB outlines, Target/Actual markers, gamut and Δu′v′. It is available in Fixture and Surfaces.
 

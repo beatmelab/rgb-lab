@@ -280,3 +280,16 @@ input:focus-visible, select:focus-visible { outline: 2px solid #d1e4be; outline-
   .surface-actual .surface-materials span { margin-top: 4px; font-size: 8px; }
   .surface-approximation { bottom: 4px; font-size: 8px; }
 }
+
+@media (max-width: 640px) and (orientation: portrait) {
+  .app {
+    --mobile-panel-height: 44dvh;
+    --mobile-panel-bottom: max(12px, env(safe-area-inset-bottom));
+    --mobile-visual-top: max(64px, calc(env(safe-area-inset-top) + 48px));
+    --mobile-visual-bottom: calc(var(--mobile-panel-height) + var(--mobile-panel-bottom) + 12px);
+  }
+  .info-button { top: max(14px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); bottom: auto; left: auto; }
+  .controls { left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right)); bottom: var(--mobile-panel-bottom); width: auto; height: var(--mobile-panel-height); }
+  .canvas-container, .surface-view { inset: var(--mobile-visual-top) 0 var(--mobile-visual-bottom); transform: none; }
+  .surface-reference { top: 8px; }
+}
