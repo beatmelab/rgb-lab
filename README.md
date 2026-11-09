@@ -96,7 +96,9 @@ The last selected mode is saved in `localStorage` as `rgb-lab:mode` and restored
 
 Only the mode survives a reload. Levels, positions, blur, engine, White CCT, skin and Equal illuminance return to defaults. Within a session, Basic retains its own state; Fixture and Surfaces share the engine, target, levels, beam positions and blur. Engines remember their White CCT selections during that session, and Surfaces retains its Equal illuminance selection.
 
-The app has no account, backend or analytics. Fonts, images and numerical data are bundled locally; running it makes no external data, font or image requests. The source links in the information dialog open external websites only when selected.
+The app has no account or application backend. It uses GoatCounter for visit statistics and loads its tracking script from `gc.zgo.at`. Statistics can include the page, referrer, browser, approximate country and screen size. According to [GoatCounter's privacy policy](https://www.goatcounter.com/help/privacy), its visitor tracking does not use cookies; it may temporarily process the visitor's IP address and browser information.
+
+The site is hosted on GitHub Pages. [GitHub says](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) it logs and stores visitors' IP addresses for security; see also the [GitHub privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement). Fonts, images and numerical data are bundled locally. The source links in the information dialog open external websites only when selected. Privacy information is also available in About.
 
 ## Scope and accuracy
 

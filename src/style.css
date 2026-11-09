@@ -227,6 +227,10 @@ input:focus-visible, select:focus-visible { outline: 2px solid #d1e4be; outline-
 .about-dialog h3 { margin: 22px 0 8px; font-size: 13px; font-weight: 600; color: #f3f3f3; }
 .about-dialog p { margin: 12px 0 0; }
 .about-dialog strong { font-weight: 550; color: #eeeef0; }
+.about-privacy { margin-top: 12px; font-size: 12px; }
+.about-privacy summary { width: fit-content; color: #bfd4ad; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.about-privacy summary:focus-visible { outline: 2px solid #d1e4be; outline-offset: 4px; }
+.about-privacy a { color: #bfd4ad; text-underline-offset: 3px; }
 .about-dialog .about-note { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border); color: #a6aab1; font-size: 12px; }
 .about-dialog .about-sources { color: #a6aab1; font-size: 12px; }
 .about-sources a { color: #bfd4ad; text-underline-offset: 3px; }

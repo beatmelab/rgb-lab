@@ -32,6 +32,7 @@
     <link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/src/style.css" />
+    <script data-goatcounter="https://rgb-lab.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </head>
   <body>
     <div class="app">
@@ -163,9 +164,13 @@
       <h3>Move and soften</h3>
       <p>Hover over the lights to see the outline and name of the emitter that will be selected, then drag to move it. In overlaps, the nearest eligible light center is selected. The hint disappears while dragging. With the keyboard, use Tab to select a light and the arrow keys to move it by 5 px, or 20 px with Shift.</p>
       <p><strong>Blur</strong> softens the edges, starts at 20 px and ranges from 0 to 80 px. <strong>Reset positions</strong> restores the layout without changing intensities or blur.</p>
-      <h3>Remembered mode</h3>
-      <p>This browser remembers the last selected mode before the next visit. Only the mode is saved; levels, positions, blur, engine, White CCT, skin and Equal illuminance return to their defaults on reload. The app uses localStorage for this preference and has no account or analytics. Its fonts and data are bundled locally.</p>
       <p class="about-note">Fixture profiles are generic approximations, not measurements of real products. Preview HEX is a screen representation; xy and Δu′v′ describe the calculated light. The swatches show combined emitter output, while the canvas shows their spatial overlap at a fixed exposure.</p>
+      <details class="about-privacy">
+        <summary>Privacy</summary>
+        <p><strong>On this device.</strong> RGB Lab saves your last selected mode in localStorage so it can restore it on your next visit. Other settings return to their defaults when you reload.</p>
+        <p><strong>Visit statistics.</strong> RGB Lab uses GoatCounter to measure visits. Its statistics can include the page, referrer, browser, approximate country and screen size. According to GoatCounter, its visitor tracking does not use cookies; it may process your IP address and browser information temporarily. <a href="https://www.goatcounter.com/help/privacy" target="_blank" rel="noopener noreferrer">GoatCounter privacy policy</a>.</p>
+        <p><strong>Hosting.</strong> This site is hosted on GitHub Pages. GitHub says it logs and stores visitors’ IP addresses for security. <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection" target="_blank" rel="noopener noreferrer">GitHub Pages data collection</a> · <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub privacy statement</a>.</p>
+      </details>
       <p class="about-sources">Application code: MIT. Data and font licenses remain separate. <a href="./NOTICE.txt" target="_blank" rel="noopener noreferrer">Licenses and attribution</a>.</p>
       <p class="about-sources">Created by <a href="https://beatmelab.com" target="_blank" rel="noopener noreferrer">BeatMe Lab</a> · <a href="https://github.com/beatmelab/rgb-lab" target="_blank" rel="noopener noreferrer">Source on GitHub</a></p>
     </dialog>
